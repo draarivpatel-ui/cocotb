@@ -15,9 +15,6 @@ from pytest import Config, OptionGroup, Parser
 
 from cocotb_tools import _env
 
-PREFIXES: tuple[str, ...] = ("cocotb_", "gpi_", "pygpi_")
-
-
 IniType = Literal[
     "string",
     "paths",
@@ -157,15 +154,3 @@ def populate_ini_to_options(config: Config, options: Iterable[Option]) -> None:
 
         if value is None:
             setattr(config.option, option.name, config.getini(option.name))
-
-
-def is_cocotb_option(name: str) -> bool:
-    """Check if provided name is a cocotb option.
-
-    Args:
-        name: Name of option (command line argument, entry from configuration file, ...).
-
-    Returns:
-        True if option is cococtb option. Otherwise False.
-    """
-    return any(name.startswith(prefix) for prefix in PREFIXES)
